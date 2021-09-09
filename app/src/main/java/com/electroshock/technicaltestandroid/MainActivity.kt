@@ -2,6 +2,8 @@ package com.electroshock.technicaltestandroid
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
@@ -15,6 +17,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -22,9 +25,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.electroshock.technicaltestandroid.MainActivity.HexToJetpackColor.getColor
 import com.electroshock.technicaltestandroid.ui.theme.TechnicalTestAndroidTheme
 import com.google.gson.GsonBuilder
@@ -40,14 +44,13 @@ class MainActivity : ComponentActivity() {
     val dataPojo = Data()
     var itemsArray1: ArrayList<Cell> = ArrayList()
     var itemsArray2: ArrayList<Cell> = ArrayList()
-    var itemsArray3: ArrayList<List<Cell>> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (isNetworkAvailable(applicationContext) == true){
                 parseJSON()
         }else {
-            Toast.makeText(this@MainActivity, "Network Not Available", Toast.LENGTH_LONG).show()
+            Toast.makeText(this@MainActivity, "Please turn on your internet Connection", Toast.LENGTH_LONG).show()
             finish()
         }
     }
@@ -157,8 +160,6 @@ class MainActivity : ComponentActivity() {
 
                                 } else if (i == 3 || i == 5) {
 
-                                    Log.d("Array 3 saya ", itemsArray3.toString())
-
                                     // Card Title
                                     val cardTitle = items[i].card?.cardTitle?.titleValue ?: "N/A"
                                     Log.d("Title: ", cardTitle)
@@ -192,24 +193,16 @@ class MainActivity : ComponentActivity() {
                                         ?: "N/A"
                                     Log.d("Card Title Text Color: ", cardImageHeight)
 
-                                    val modelCard =
-                                        Cell(
-                                            cardTitle,
-                                            cardDescription,
+                                    val image =
+                                        Image(
                                             cardImage,
-                                            cardTitleTextColor,
-                                            cardTitleTextSize,
                                             cardImageWidth,
                                             cardImageHeight
                                         )
 //                                    itemsArray1.add(modelCard)
 //                                    Log.d("Array 1 saya ", itemsArray1.toString())
-//                                    itemsArray3.add(itemsArray1)
-//                                     Log.d("Array 3 saya ", itemsArray3.toString())
 
                                 } else {
-                                    Log.d("Array 3 saya ", itemsArray3.toString())
-
                                     // Card Title
                                     val cardTitle = items[i].card?.cardTitle?.titleValue ?: "N/A"
                                     // Card Description
@@ -230,22 +223,17 @@ class MainActivity : ComponentActivity() {
                                     val cardImageHeight = items[i].card?.cardImage?.imageSize?.imageSizeHeight
                                         ?: "N/A"
 
-                                    val modelCard =
-                                        Cell(
-                                            cardTitle,
-                                            cardDescription,
-                                            cardImage,
-                                            cardTitleTextColor,
-                                            cardTitleTextSize,
-                                            cardImageWidth,
-                                            cardImageHeight
-                                        )
-                                    itemsArray2.add(modelCard)
-//                                    Log.d("Array 3 saya ", itemsArray3.toString())
-//                                    itemsArray3.add(itemsArray2)
-
-//                                    adapter = RecycleViewAdapter(itemsArray2)
-//                                    adapter.notifyDataSetChanged()
+//                                    val modelCard =
+//                                        Cell(
+//                                            cardTitle,
+//                                            cardDescription,
+//                                            cardImage,
+//                                            cardTitleTextColor,
+//                                            cardTitleTextSize,
+//                                            cardImageWidth,
+//                                            cardImageHeight
+//                                        )
+//                                    itemsArray2.add(modelCard)
                                 }
 
                             }
@@ -264,6 +252,16 @@ class MainActivity : ComponentActivity() {
                                     TitleCard(Cell(dataPojo.headerValue, dataPojo.headerTextColor, dataPojo.headerFontSize))
                                     TitleCard(Cell(dataPojo.subHeaderValue, dataPojo.subHeaderTextColor, dataPojo.subHeaderFontSize))
                                     TitleCard(Cell(dataPojo.descSubHeaderValue, dataPojo.descSubHeaderTextColor, dataPojo.descSubHeaderFontSize))
+                                }
+
+//                                Column(modifier = Modifier.fillMaxWidth()) {
+//                                    // 3
+//                                    Image(asset = image, contentScale = ContentScale.Crop, modifier = Modifier.fillMaxWidth().height(144.dp))
+//                                    Text(recipe.title)
+//                                }
+
+                                LazyColumn {
+
                                 }
                             }
                         }
@@ -297,13 +295,5 @@ fun TitleCard(cell: Cell){
 
             Text(cell.cardTitle, color = getColor(cell.cardTextColor), fontSize = ((cell.cardTextSize).toInt()).sp)
         }
-    }
-}
-
-@Preview
-@Composable
-fun PreviewDataCard() {
-    TechnicalTestAndroidTheme {
-
     }
 }

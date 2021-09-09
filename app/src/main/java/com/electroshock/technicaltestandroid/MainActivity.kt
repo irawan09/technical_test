@@ -45,20 +45,12 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            TechnicalTestAndroidTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(color = MaterialTheme.colors.background) {
-                    if (isNetworkAvailable(applicationContext) == true){
-                        TitleCard(Cell("Android", "Jetpack Compose"))
-
-//                        parseJSON()
-                    }else {
-                        Toast.makeText(this@MainActivity, "Network Not Available", Toast.LENGTH_LONG).show()
-                        finish()
-                    }
-                }
-            }
+        if (isNetworkAvailable(applicationContext) == true){
+//           TitleCard(Cell("Android", "Jetpack Compose"))
+                parseJSON()
+        }else {
+            Toast.makeText(this@MainActivity, "Network Not Available", Toast.LENGTH_LONG).show()
+            finish()
         }
     }
 
@@ -255,7 +247,7 @@ class MainActivity : ComponentActivity() {
                                             cardImageHeight
                                         )
                                     itemsArray2.add(modelCard)
-                                    Log.d("Array 3 saya ", itemsArray3.toString())
+//                                    Log.d("Array 3 saya ", itemsArray3.toString())
 //                                    itemsArray3.add(itemsArray2)
 
 //                                    adapter = RecycleViewAdapter(itemsArray2)
@@ -266,6 +258,21 @@ class MainActivity : ComponentActivity() {
                         }
                     }
 
+                    setContent {
+                        TechnicalTestAndroidTheme {
+                            // A surface container using the 'background' color from the theme
+                            Surface(color = MaterialTheme.colors.background) {
+                                Column(modifier = Modifier
+                                    .fillMaxWidth()
+                                    .wrapContentSize(Alignment.Center)
+                                    .clickable(onClick = { } )) {
+                                    TitleCard(Cell(dataPojo.headerValue))
+                                    TitleCard(Cell(dataPojo.subHeaderValue))
+                                    TitleCard(Cell(dataPojo.descSubHeaderValue))
+                                }
+                            }
+                        }
+                    }
 //                    binding.jsonResultsRecyclerview.adapter = adapter
 
 //                    //Setting header Home App text
@@ -301,14 +308,13 @@ class MainActivity : ComponentActivity() {
 fun TitleCard(cell: Cell){
     TechnicalTestAndroidTheme{
         Column(modifier = Modifier
-            .padding(30.dp)
+//            .padding(.dp)
             .fillMaxWidth()
             .wrapContentSize(Alignment.Center)
-            .clickable(onClick = { } ) /*question = "3 Bananas required"*/
-            .clip(shape = RoundedCornerShape(16.dp))){
+            .clickable(onClick = { } )){
+//            .clip(shape = RoundedCornerShape(16.dp))){
 
             Text(cell.cardTitle)
-            Text(cell.cardDescription)
         }
     }
 }

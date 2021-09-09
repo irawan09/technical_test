@@ -13,18 +13,17 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.electroshock.technicaltestandroid.MainActivity.HexToJetpackColor.getColor
 import com.electroshock.technicaltestandroid.ui.theme.TechnicalTestAndroidTheme
 import com.google.gson.GsonBuilder
 import kotlinx.coroutines.CoroutineScope
@@ -46,7 +45,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (isNetworkAvailable(applicationContext) == true){
-//           TitleCard(Cell("Android", "Jetpack Compose"))
                 parseJSON()
         }else {
             Toast.makeText(this@MainActivity, "Network Not Available", Toast.LENGTH_LONG).show()
@@ -265,9 +263,14 @@ class MainActivity : ComponentActivity() {
                                 Column(modifier = Modifier
                                     .fillMaxWidth()
                                     .wrapContentSize(Alignment.Center)) {
-                                    TitleCard(Cell(dataPojo.headerValue))
-                                    TitleCard(Cell(dataPojo.subHeaderValue))
-                                    TitleCard(Cell(dataPojo.descSubHeaderValue))
+                                        Log.d("Warna Saya : ", dataPojo.headerTextColor)
+                                        Log.d("Warna Saya : ", getColor(dataPojo.headerTextColor).toString() )
+//                                    dataPojo.headerTextColor
+//                                    dataPojo.subHeaderTextColor
+//                                    dataPojo.descSubHeaderTextColor
+                                    TitleCard(Cell(dataPojo.headerValue, dataPojo.headerTextColor))
+                                    TitleCard(Cell(dataPojo.subHeaderValue, dataPojo.subHeaderTextColor))
+                                    TitleCard(Cell(dataPojo.descSubHeaderValue, dataPojo.descSubHeaderTextColor))
                                 }
                             }
                         }
@@ -301,6 +304,12 @@ class MainActivity : ComponentActivity() {
     companion object {
         var baseUrl = "https://private-8ce77c-tmobiletest.apiary-mock.com/"
     }
+
+    object HexToJetpackColor {
+        fun getColor(colorString: String): Color {
+            return Color(android.graphics.Color.parseColor(colorString))
+        }
+    }
 }
 
 @Composable
@@ -313,7 +322,7 @@ fun TitleCard(cell: Cell){
             .clickable(onClick = { } )){
 //            .clip(shape = RoundedCornerShape(16.dp))){
 
-            Text(cell.cardTitle)
+            Text(cell.cardTitle, color = getColor(cell.cardTextColor))
         }
     }
 }

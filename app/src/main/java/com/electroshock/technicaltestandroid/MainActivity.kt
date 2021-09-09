@@ -264,8 +264,7 @@ class MainActivity : ComponentActivity() {
                             Surface(color = MaterialTheme.colors.background) {
                                 Column(modifier = Modifier
                                     .fillMaxWidth()
-                                    .wrapContentSize(Alignment.Center)
-                                    .clickable(onClick = { } )) {
+                                    .wrapContentSize(Alignment.Center)) {
                                     TitleCard(Cell(dataPojo.headerValue))
                                     TitleCard(Cell(dataPojo.subHeaderValue))
                                     TitleCard(Cell(dataPojo.descSubHeaderValue))

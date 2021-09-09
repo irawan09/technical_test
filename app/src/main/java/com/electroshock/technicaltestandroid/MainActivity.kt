@@ -2,22 +2,29 @@ package com.electroshock.technicaltestandroid
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Color
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color.Companion.Red
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.electroshock.technicaltestandroid.ui.theme.TechnicalTestAndroidTheme
 import com.google.gson.GsonBuilder
 import kotlinx.coroutines.CoroutineScope
@@ -26,7 +33,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.time.format.TextStyle
 
 class MainActivity : ComponentActivity() {
 
@@ -44,7 +50,7 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
                     if (isNetworkAvailable(applicationContext) == true){
-                        MessageCard(Cell("Android", "Jetpack Compose"))
+                        TitleCard(Cell("Android", "Jetpack Compose"))
 
 //                        parseJSON()
                     }else {
@@ -210,10 +216,10 @@ class MainActivity : ComponentActivity() {
                                             cardImageWidth,
                                             cardImageHeight
                                         )
-                                    itemsArray1.add(modelCard)
+//                                    itemsArray1.add(modelCard)
 //                                    Log.d("Array 1 saya ", itemsArray1.toString())
-                                    itemsArray3.add(itemsArray1)
-                                    Log.d("Array 3 saya ", itemsArray3.toString())
+//                                    itemsArray3.add(itemsArray1)
+//                                     Log.d("Array 3 saya ", itemsArray3.toString())
 
                                 } else {
                                     Log.d("Array 3 saya ", itemsArray3.toString())
@@ -250,7 +256,7 @@ class MainActivity : ComponentActivity() {
                                         )
                                     itemsArray2.add(modelCard)
                                     Log.d("Array 3 saya ", itemsArray3.toString())
-                                    itemsArray3.add(itemsArray2)
+//                                    itemsArray3.add(itemsArray2)
 
 //                                    adapter = RecycleViewAdapter(itemsArray2)
 //                                    adapter.notifyDataSetChanged()
@@ -292,22 +298,27 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
+fun TitleCard(cell: Cell){
+    TechnicalTestAndroidTheme{
+        Column(modifier = Modifier
+            .padding(30.dp)
+            .fillMaxWidth()
+            .wrapContentSize(Alignment.Center)
+            .clickable(onClick = { } ) /*question = "3 Bananas required"*/
+            .clip(shape = RoundedCornerShape(16.dp))){
+
+            Text(cell.cardTitle)
+            Text(cell.cardDescription)
+        }
+    }
 }
 
+@Preview
 @Composable
-fun MessageCard(cell: Cell){
-    Text(cell.cardTitle)
-    Text(cell.cardDescription)
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
+fun PreviewDataCard() {
     TechnicalTestAndroidTheme {
-        MessageCard(
-            cell = Cell("Colleague", "Hey, take a look at Jetpack Compose, it's great!")
+        TitleCard(
+            cell = Cell("Colleague", "Take a look at Jetpack Compose, it's great!")
         )
     }
 }

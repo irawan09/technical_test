@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.wrapContentSize
@@ -23,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.electroshock.technicaltestandroid.MainActivity.HexToJetpackColor.getColor
 import com.electroshock.technicaltestandroid.ui.theme.TechnicalTestAndroidTheme
 import com.google.gson.GsonBuilder
@@ -39,8 +41,6 @@ class MainActivity : ComponentActivity() {
     var itemsArray1: ArrayList<Cell> = ArrayList()
     var itemsArray2: ArrayList<Cell> = ArrayList()
     var itemsArray3: ArrayList<List<Cell>> = ArrayList()
-
-//    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,10 +83,6 @@ class MainActivity : ComponentActivity() {
 
         // Create Service for retrofit object
         val service = retrofit.create(DataService::class.java)
-
-//        var headerText = findViewById<TextView>(R.id.header_title)
-//        var subHeaderText = findViewById<TextView>(R.id.subheader_title)
-//        var descSubHeaderText = findViewById<TextView>(R.id.descsubheader_title)
 
         CoroutineScope(Dispatchers.IO).launch {
 
@@ -260,41 +256,18 @@ class MainActivity : ComponentActivity() {
                         TechnicalTestAndroidTheme {
                             // A surface container using the 'background' color from the theme
                             Surface(color = MaterialTheme.colors.background) {
-                                Column(modifier = Modifier
+                                Column(
+                                    verticalArrangement = Arrangement.SpaceEvenly,
+                                    modifier = Modifier
                                     .fillMaxWidth()
                                     .wrapContentSize(Alignment.Center)) {
-                                        Log.d("Warna Saya : ", dataPojo.headerTextColor)
-                                        Log.d("Warna Saya : ", getColor(dataPojo.headerTextColor).toString() )
-//                                    dataPojo.headerTextColor
-//                                    dataPojo.subHeaderTextColor
-//                                    dataPojo.descSubHeaderTextColor
-                                    TitleCard(Cell(dataPojo.headerValue, dataPojo.headerTextColor))
-                                    TitleCard(Cell(dataPojo.subHeaderValue, dataPojo.subHeaderTextColor))
-                                    TitleCard(Cell(dataPojo.descSubHeaderValue, dataPojo.descSubHeaderTextColor))
+                                    TitleCard(Cell(dataPojo.headerValue, dataPojo.headerTextColor, dataPojo.headerFontSize))
+                                    TitleCard(Cell(dataPojo.subHeaderValue, dataPojo.subHeaderTextColor, dataPojo.subHeaderFontSize))
+                                    TitleCard(Cell(dataPojo.descSubHeaderValue, dataPojo.descSubHeaderTextColor, dataPojo.descSubHeaderFontSize))
                                 }
                             }
                         }
                     }
-//                    binding.jsonResultsRecyclerview.adapter = adapter
-
-//                    //Setting header Home App text
-//                    headerText.setText(dataPojo.headerValue)
-//                    headerText.setTextColor(Color.parseColor(dataPojo.headerTextColor))
-//                    var sizeTextJson = dataPojo.headerFontSize
-//                    headerText.setTextSize(sizeTextJson.toFloat())
-//
-//                    //Setting subheader Home App text
-//                    subHeaderText.setText(dataPojo.subHeaderValue)
-//                    subHeaderText.setTextColor(Color.parseColor(dataPojo.subHeaderTextColor))
-//                    var subSizeTextJson = dataPojo.subHeaderFontSize
-//                    subHeaderText.setTextSize(subSizeTextJson.toFloat())
-//
-//                    //Setting subheader description Home App text
-//                    descSubHeaderText.setText(dataPojo.descSubHeaderValue)
-//                    descSubHeaderText.setTextColor(Color.parseColor(dataPojo.descSubHeaderTextColor))
-//                    var descSubSizeTextJson = dataPojo.descSubHeaderFontSize
-//                    descSubHeaderText.setTextSize(descSubSizeTextJson.toFloat())
-
                 } else {
                     Log.e("RETROFIT_ERROR", response.code().toString())
                 }
@@ -322,7 +295,7 @@ fun TitleCard(cell: Cell){
             .clickable(onClick = { } )){
 //            .clip(shape = RoundedCornerShape(16.dp))){
 
-            Text(cell.cardTitle, color = getColor(cell.cardTextColor))
+            Text(cell.cardTitle, color = getColor(cell.cardTextColor), fontSize = ((cell.cardTextSize).toInt()).sp)
         }
     }
 }
@@ -331,8 +304,6 @@ fun TitleCard(cell: Cell){
 @Composable
 fun PreviewDataCard() {
     TechnicalTestAndroidTheme {
-        TitleCard(
-            cell = Cell("Colleague", "Take a look at Jetpack Compose, it's great!")
-        )
+
     }
 }

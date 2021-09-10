@@ -258,9 +258,9 @@ class MainActivity : ComponentActivity() {
                                     Log.d("Array 1 saya ", itemsArray1.toString())
 
                                 }
-
                             }
                         }
+                        Log.d("Array 1 index 0 data image Title saya ", (itemsArray1[0].cardImageTitle).toString())
                     }
 
                     val sharedPreferences: SharedPreferences = getContext().getSharedPreferences(sharedPrefFile,Context.MODE_PRIVATE)

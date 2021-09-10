@@ -2,12 +2,14 @@ package com.electroshock.technicaltestandroid
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -30,6 +32,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.electroshock.technicaltestandroid.MainActivity.HexToJetpackColor.getColor
+import com.electroshock.technicaltestandroid.MainActivity.PreferenceHelper.customPreference
 import com.electroshock.technicaltestandroid.ui.theme.TechnicalTestAndroidTheme
 import com.google.gson.GsonBuilder
 import kotlinx.coroutines.CoroutineScope
@@ -41,14 +44,16 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : ComponentActivity() {
 
+    private val sharedPrefFile = "kotlinsharedpreference"
     val dataPojo = Data()
     var itemsArray1: ArrayList<Cell> = ArrayList()
     var itemsArray2: ArrayList<Cell> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContext(this)
         if (isNetworkAvailable(applicationContext) == true){
-                parseJSON()
+            parseJSON()
         }else {
             Toast.makeText(this@MainActivity, "Please turn on your internet Connection", Toast.LENGTH_LONG).show()
             finish()
@@ -240,6 +245,13 @@ class MainActivity : ComponentActivity() {
                         }
                     }
 
+                    val sharedPreferences: SharedPreferences = getContext().getSharedPreferences(sharedPrefFile,Context.MODE_PRIVATE)
+                    val editor:SharedPreferences.Editor =  sharedPreferences.edit()
+//                    editor.putInt("id_key",id)
+//                    editor.putString("name_key",name)
+                    editor.apply()
+                    editor.commit()
+
                     setContent {
                         TechnicalTestAndroidTheme {
                             // A surface container using the 'background' color from the theme
@@ -274,6 +286,16 @@ class MainActivity : ComponentActivity() {
     }
     companion object {
         var baseUrl = "https://private-8ce77c-tmobiletest.apiary-mock.com/"
+
+        private lateinit var context: Context
+
+        fun setContext(con: Context) {
+            context=con
+        }
+
+        fun getContext(): Context {
+            return context
+        }
     }
 
     object HexToJetpackColor {
@@ -281,6 +303,7 @@ class MainActivity : ComponentActivity() {
             return Color(android.graphics.Color.parseColor(colorString))
         }
     }
+
 }
 
 @Composable

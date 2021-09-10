@@ -14,11 +14,9 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -27,8 +25,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.bumptech.glide.Glide
+import coil.compose.rememberImagePainter
 import com.electroshock.technicaltestandroid.MainActivity.HexToJetpackColor.getColor
 import com.electroshock.technicaltestandroid.ui.theme.TechnicalTestAndroidTheme
 import com.google.gson.GsonBuilder
@@ -196,7 +196,7 @@ class MainActivity : ComponentActivity() {
                                     Log.d("Card Title Text Color: ", cardImageHeight)
 
                                     val image =
-                                        Image(
+                                        ImageData(
                                             cardImage,
                                             cardImageWidth,
                                             cardImageHeight
@@ -212,6 +212,7 @@ class MainActivity : ComponentActivity() {
                                         ?: "N/A"
                                     // Card Image
                                     val cardImage = items[i].card?.cardImage?.imageUrl ?: "N/A"
+                                    dataPojo.imageUrl = cardImage
                                     //Card Title/Description text color
                                     val cardTitleTextColor = items[i].card?.cardAttributes?.attributesTextColor
                                         ?: "N/A"
@@ -221,9 +222,11 @@ class MainActivity : ComponentActivity() {
                                     //Card Image width
                                     val cardImageWidth = items[i].card?.cardImage?.imageSize?.imageSizeWidth
                                         ?: "N/A"
+                                    dataPojo.imageSizeWidth = cardImageWidth
                                     //Card Image height
                                     val cardImageHeight = items[i].card?.cardImage?.imageSize?.imageSizeHeight
                                         ?: "N/A"
+                                    dataPojo.imageSizeHeight = cardImageHeight
 
 //                                    val modelCard =
 //                                        Cell(
@@ -257,19 +260,13 @@ class MainActivity : ComponentActivity() {
                                 Column(
                                     verticalArrangement = Arrangement.SpaceEvenly,
                                     modifier = Modifier
-                                    .fillMaxWidth()
-                                    .wrapContentSize(Alignment.Center)) {
+                                        .fillMaxWidth()
+                                        .wrapContentSize(Alignment.Center)) {
                                     TitleCard(Cell(dataPojo.headerValue, dataPojo.headerTextColor, dataPojo.headerFontSize))
                                     TitleCard(Cell(dataPojo.subHeaderValue, dataPojo.subHeaderTextColor, dataPojo.subHeaderFontSize))
                                     TitleCard(Cell(dataPojo.descSubHeaderValue, dataPojo.descSubHeaderTextColor, dataPojo.descSubHeaderFontSize))
+                                    CoilImage(dataPojo.imageUrl, dataPojo.imageSizeHeight, dataPojo.imageSizeWidth)
                                 }
-
-//                                Column(modifier = Modifier.fillMaxWidth()) {
-//                                    // 3
-//                                    Image(asset = image, contentScale = ContentScale.Crop, modifier = Modifier.fillMaxWidth().height(144.dp))
-//                                    Text(recipe.title)
-//                                }
-
                                 LazyColumn {
 
                                 }
@@ -316,5 +313,25 @@ fun TitleCard(cell: Cell){
 
             Text(cell.cardTitle, color = getColor(cell.cardTextColor), fontSize = ((cell.cardTextSize).toInt()).sp)
         }
+    }
+}
+
+@Composable
+fun CoilImage(url: String, heightImage : String, widthImage : String){
+    Box(modifier = Modifier
+        .height((heightImage.toInt()).dp)
+        .width((widthImage.toInt()).dp),
+        contentAlignment = Alignment.Center) {
+            val painter = rememberImagePainter(
+                data = url,
+                builder = {
+
+                }
+            )
+
+        Image(
+            painter = painter,
+            contentDescription = null,
+            modifier = Modifier.height((heightImage.toInt()).dp).width((widthImage.toInt()).dp))
     }
 }

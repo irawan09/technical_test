@@ -9,14 +9,14 @@ data class Cell(
     var cardDescription: String  = "N/A",
 )
 
-data class Image(
+data class ImageData(
     var cardImage: String = "N/A",
     var cardImageWidth: String = "N/A",
     var cardImageHeight: String = "N/A"
 
 )
 
-data class TitleImage(
+data class TitleImageData(
     var cardTitle: String  = "N/A",
     var cardTextColor: String = "N/A",
     var cardTextSize: String = "N/A",

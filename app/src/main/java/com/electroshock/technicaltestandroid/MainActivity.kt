@@ -107,7 +107,7 @@ class MainActivity : ComponentActivity() {
                     if (items != null) {
 
                         for (i in 0 until items.count()) {
-                            Log.d("Number of data : ", items.count().toString())
+                            Log.d("Loop ke ", i.toString())
 
                             if (i <= items.count()) {
 
@@ -173,55 +173,62 @@ class MainActivity : ComponentActivity() {
                                     Log.d("Description: ", cardDescription)
 
                                     //Card Title text color
-                                    val cardTitleTextColor = items[i].card?.cardAttributes?.attributesTextColor
+                                    val cardTitleTextColor = items[i].card?.cardTitle?.titleAttributes?.titleAttributesTextColor
                                         ?: "N/A"
                                     Log.d("Card Title Text Color: ", cardTitleTextColor)
 
                                     //Card Title Text Size
-                                    val cardTitleTextSize = items[i].card?.cardAttributes?.attributesFont?.attributesFontSize
+                                    val cardTitleTextSize = items[i].card?.cardTitle?.titleAttributes?.titleAttributesSize?.size
                                         ?: "N/A"
                                     Log.d("Card Title Text Size: ", cardTitleTextSize)
 
                                     //Card Description Text Size
-                                    val cardDescriptionTextColor = items[i].card?.cardAttributes?.attributesFont?.attributesFontSize
+                                    val cardDescriptionTextColor = items[i].card?.cardDescription?.descriptionAttributes?.descriptionAttributesTextColor
                                                     ?: "N/A"
-                                    Log.d("Card Title Text Size: ", cardDescriptionTextColor)
+                                    Log.d("Card Description Text Color ", cardDescriptionTextColor)
                                     //Card Description Text Size
-                                    val cardDescriptionTextSize = items[i].card?.cardAttributes?.attributesFont?.attributesFontSize
+                                    val cardDescriptionTextSize = items[i].card?.cardDescription?.descriptionAttributes?.descriptionAttributesFontSize?.size
                                         ?: "N/A"
-                                    Log.d("Card Title Text Size: ", cardDescriptionTextSize)
+                                    Log.d("Card Description Text Size ", cardDescriptionTextSize)
 
                                 } else {
                                     // Card Title
                                     val cardTitle = items[i].card?.cardTitle?.titleValue ?: "N/A"
+                                    Log.d("Card Title ", cardTitle)
                                     // Card Description
                                     val cardDescription = items[i].card?.cardDescription?.descriptionValue
                                         ?: "N/A"
+                                    Log.d("Card Description ", cardDescription)
                                     // Card Image
                                     val cardImage = items[i].card?.cardImage?.imageUrl ?: "N/A"
                                     dataPojo.imageUrl = cardImage
+                                    Log.d("Card Image ", cardImage)
                                     //Card Title text color
-                                    val cardTitleTextColor = items[i].card?.cardAttributes?.attributesTextColor
+                                    val cardTitleTextColor = items[i].card?.cardTitle?.titleAttributes?.titleAttributesTextColor
                                         ?: "N/A"
+                                    Log.d("Card Title Text Color ", cardTitleTextColor)
                                     //Card Title Text Size
-                                    val cardTitleTextSize = items[i].card?.cardAttributes?.attributesFont?.attributesFontSize
+                                    val cardTitleTextSize = items[i].card?.cardTitle?.titleAttributes?.titleAttributesSize?.size
                                         ?: "N/A"
+                                    Log.d("Card Title Text Size ", cardTitleTextSize)
                                     //Card Description Text Size
-                                    val cardDescriptionTextColor = items[i].card?.cardAttributes?.attributesFont?.attributesFontSize
+                                    val cardDescriptionTextColor = items[i].card?.cardDescription?.descriptionAttributes?.descriptionAttributesTextColor
                                         ?: "N/A"
-                                    Log.d("Card Title Text Size: ", cardDescriptionTextColor)
+                                    Log.d("Card Description Text Color: ", cardDescriptionTextColor)
                                     //Card Description Text Size
-                                    val cardDescriptionTextSize = items[i].card?.cardAttributes?.attributesFont?.attributesFontSize
+                                    val cardDescriptionTextSize = items[i].card?.cardDescription?.descriptionAttributes?.descriptionAttributesFontSize?.size
                                         ?: "N/A"
-                                    Log.d("Card Title Text Size: ", cardDescriptionTextSize)
+                                    Log.d("Card Description Text Size: ", cardDescriptionTextSize)
                                     //Card Image width
                                     val cardImageWidth = items[i].card?.cardImage?.imageSize?.imageSizeWidth
                                         ?: "N/A"
                                     dataPojo.imageSizeWidth = cardImageWidth
+                                    Log.d("Card Image Width ", cardImageWidth)
                                     //Card Image height
                                     val cardImageHeight = items[i].card?.cardImage?.imageSize?.imageSizeHeight
                                         ?: "N/A"
                                     dataPojo.imageSizeHeight = cardImageHeight
+                                    Log.d("Card Image Height ", cardImageHeight)
 
                                     val image =
                                         ImageData(

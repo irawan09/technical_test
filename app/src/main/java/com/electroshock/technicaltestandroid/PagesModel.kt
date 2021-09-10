@@ -26,12 +26,6 @@ data class Cards(
 
 data class Card(
 
-    @SerializedName("value")
-    val cardValue: String?,
-
-    @SerializedName("attributes")
-    val cardAttributes: CardAttributes?,
-
     @SerializedName("title")
     val cardTitle: CardTitle?,
 
@@ -39,7 +33,14 @@ data class Card(
     val cardDescription: CardDescription?,
 
     @SerializedName("image")
-    val cardImage: CardImage?
+    val cardImage: CardImage?,
+
+    @SerializedName("value")
+    val cardValue: String?,
+
+    @SerializedName("attributes")
+    val cardAttributes: CardAttributes?
+
 
 )
 

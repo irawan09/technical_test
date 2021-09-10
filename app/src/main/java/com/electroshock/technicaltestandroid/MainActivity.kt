@@ -45,7 +45,7 @@ class MainActivity : ComponentActivity() {
     private val sharedPrefFile = "kotlinsharedpreference"
     val dataPojo = Data()
     var itemsArray1: ArrayList<ImageData> = ArrayList()
-    var itemsArray2: ArrayList<Cell> = ArrayList()
+    var itemsArray2: ArrayList<TitleImageData> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -191,6 +191,18 @@ class MainActivity : ComponentActivity() {
                                         ?: "N/A"
                                     Log.d("Card Description Text Size ", cardDescriptionTextSize)
 
+                                    val titleImageData =
+                                        TitleImageData(
+                                            cardTitle,
+                                            cardTitleTextColor,
+                                            cardTitleTextSize,
+                                            cardDescription,
+                                            cardDescriptionTextColor,
+                                            cardDescriptionTextSize
+                                        )
+                                    itemsArray2.add(titleImageData)
+                                    Log.d("Array 2 saya ", itemsArray2.toString())
+
                                 } else {
                                     // Card Title
                                     val cardTitle = items[i].card?.cardTitle?.titleValue ?: "N/A"
@@ -245,17 +257,6 @@ class MainActivity : ComponentActivity() {
                                     itemsArray1.add(image)
                                     Log.d("Array 1 saya ", itemsArray1.toString())
 
-//                                    val modelCard =
-//                                        Cell(
-//                                            cardTitle,
-//                                            cardDescription,
-//                                            cardImage,
-//                                            cardTitleTextColor,
-//                                            cardTitleTextSize,
-//                                            cardImageWidth,
-//                                            cardImageHeight
-//                                        )
-//                                    itemsArray2.add(modelCard)
                                 }
 
                             }

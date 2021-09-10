@@ -29,10 +29,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.sp
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.CustomTarget
-import com.bumptech.glide.request.transition.Transition
 import com.electroshock.technicaltestandroid.MainActivity.HexToJetpackColor.getColor
-import com.electroshock.technicaltestandroid.MainActivity.PreferenceHelper.customPreference
 import com.electroshock.technicaltestandroid.ui.theme.TechnicalTestAndroidTheme
 import com.google.gson.GsonBuilder
 import kotlinx.coroutines.CoroutineScope

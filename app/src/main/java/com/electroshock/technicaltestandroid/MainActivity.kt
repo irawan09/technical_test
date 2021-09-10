@@ -171,38 +171,24 @@ class MainActivity : ComponentActivity() {
                                         ?: "N/A"
                                     Log.d("Description: ", cardDescription)
 
-                                    // Card Image
-                                    val cardImage = items[i].card?.cardImage?.imageUrl ?: "N/A"
-                                    Log.d("Card Image: ", cardImage)
-
-                                    //Card Title/Description text color
+                                    //Card Title text color
                                     val cardTitleTextColor = items[i].card?.cardAttributes?.attributesTextColor
                                         ?: "N/A"
                                     Log.d("Card Title Text Color: ", cardTitleTextColor)
 
-                                    //Card Title/Description Text Size
+                                    //Card Title Text Size
                                     val cardTitleTextSize = items[i].card?.cardAttributes?.attributesFont?.attributesFontSize
                                         ?: "N/A"
                                     Log.d("Card Title Text Size: ", cardTitleTextSize)
 
-                                    //Card Image width
-                                    val cardImageWidth = items[i].card?.cardImage?.imageSize?.imageSizeWidth
+                                    //Card Description Text Size
+                                    val cardDescriptionTextColor = items[i].card?.cardAttributes?.attributesFont?.attributesFontSize
+                                                    ?: "N/A"
+                                    Log.d("Card Title Text Size: ", cardDescriptionTextColor)
+                                    //Card Description Text Size
+                                    val cardDescriptionTextSize = items[i].card?.cardAttributes?.attributesFont?.attributesFontSize
                                         ?: "N/A"
-                                    Log.d("Card Title Text Color: ", cardImageWidth)
-
-                                    //Card Image height
-                                    val cardImageHeight = items[i].card?.cardImage?.imageSize?.imageSizeHeight
-                                        ?: "N/A"
-                                    Log.d("Card Title Text Color: ", cardImageHeight)
-
-                                    val image =
-                                        ImageData(
-                                            cardImage,
-                                            cardImageWidth,
-                                            cardImageHeight
-                                        )
-//                                    itemsArray1.add(modelCard)
-//                                    Log.d("Array 1 saya ", itemsArray1.toString())
+                                    Log.d("Card Title Text Size: ", cardDescriptionTextSize)
 
                                 } else {
                                     // Card Title
@@ -213,12 +199,20 @@ class MainActivity : ComponentActivity() {
                                     // Card Image
                                     val cardImage = items[i].card?.cardImage?.imageUrl ?: "N/A"
                                     dataPojo.imageUrl = cardImage
-                                    //Card Title/Description text color
+                                    //Card Title text color
                                     val cardTitleTextColor = items[i].card?.cardAttributes?.attributesTextColor
                                         ?: "N/A"
-                                    //Card Title/Description Text Size
+                                    //Card Title Text Size
                                     val cardTitleTextSize = items[i].card?.cardAttributes?.attributesFont?.attributesFontSize
                                         ?: "N/A"
+                                    //Card Description Text Size
+                                    val cardDescriptionTextColor = items[i].card?.cardAttributes?.attributesFont?.attributesFontSize
+                                        ?: "N/A"
+                                    Log.d("Card Title Text Size: ", cardDescriptionTextColor)
+                                    //Card Description Text Size
+                                    val cardDescriptionTextSize = items[i].card?.cardAttributes?.attributesFont?.attributesFontSize
+                                        ?: "N/A"
+                                    Log.d("Card Title Text Size: ", cardDescriptionTextSize)
                                     //Card Image width
                                     val cardImageWidth = items[i].card?.cardImage?.imageSize?.imageSizeWidth
                                         ?: "N/A"
@@ -227,6 +221,21 @@ class MainActivity : ComponentActivity() {
                                     val cardImageHeight = items[i].card?.cardImage?.imageSize?.imageSizeHeight
                                         ?: "N/A"
                                     dataPojo.imageSizeHeight = cardImageHeight
+
+                                    val image =
+                                        ImageData(
+                                            cardImage,
+                                            cardImageWidth,
+                                            cardImageHeight,
+                                            cardTitle,
+                                            cardTitleTextColor,
+                                            cardTitleTextSize,
+                                            cardDescription,
+                                            cardDescriptionTextColor,
+                                            cardDescriptionTextSize
+                                        )
+//                                    itemsArray1.add(modelCard)
+//                                    Log.d("Array 1 saya ", itemsArray1.toString())
 
 //                                    val modelCard =
 //                                        Cell(

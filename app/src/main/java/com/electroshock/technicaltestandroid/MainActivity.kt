@@ -44,7 +44,7 @@ class MainActivity : ComponentActivity() {
 
     private val sharedPrefFile = "kotlinsharedpreference"
     val dataPojo = Data()
-    var itemsArray1: ArrayList<Cell> = ArrayList()
+    var itemsArray1: ArrayList<ImageData> = ArrayList()
     var itemsArray2: ArrayList<Cell> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -242,8 +242,8 @@ class MainActivity : ComponentActivity() {
                                             cardDescriptionTextColor,
                                             cardDescriptionTextSize
                                         )
-//                                    itemsArray1.add(modelCard)
-//                                    Log.d("Array 1 saya ", itemsArray1.toString())
+                                    itemsArray1.add(image)
+                                    Log.d("Array 1 saya ", itemsArray1.toString())
 
 //                                    val modelCard =
 //                                        Cell(

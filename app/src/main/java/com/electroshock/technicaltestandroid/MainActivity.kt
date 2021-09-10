@@ -19,6 +19,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -266,18 +267,20 @@ class MainActivity : ComponentActivity() {
                         TechnicalTestAndroidTheme {
                             // A surface container using the 'background' color from the theme
                             Surface(color = MaterialTheme.colors.background) {
-                                Column(
-                                    verticalArrangement = Arrangement.SpaceEvenly,
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .wrapContentSize(Alignment.Center)) {
-                                    TitleCard(Cell(dataPojo.headerValue, dataPojo.headerTextColor, dataPojo.headerFontSize))
-                                    TitleCard(Cell(dataPojo.subHeaderValue, dataPojo.subHeaderTextColor, dataPojo.subHeaderFontSize))
-                                    TitleCard(Cell(dataPojo.descSubHeaderValue, dataPojo.descSubHeaderTextColor, dataPojo.descSubHeaderFontSize))
-                                    CoilImage(dataPojo.imageUrl, dataPojo.imageSizeHeight, dataPojo.imageSizeWidth)
-                                }
-                                LazyColumn {
+                                Scaffold{
+                                    Column(
+                                        verticalArrangement = Arrangement.SpaceEvenly,
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .wrapContentSize(Alignment.Center)) {
+                                        TitleCard(Cell(dataPojo.headerValue, dataPojo.headerTextColor, dataPojo.headerFontSize))
+                                        TitleCard(Cell(dataPojo.subHeaderValue, dataPojo.subHeaderTextColor, dataPojo.subHeaderFontSize))
+                                        TitleCard(Cell(dataPojo.descSubHeaderValue, dataPojo.descSubHeaderTextColor, dataPojo.descSubHeaderFontSize))
+                                        CoilImage(dataPojo.imageUrl, dataPojo.imageSizeHeight, dataPojo.imageSizeWidth)
+                                    }
+                                    LazyColumn {
 
+                                    }
                                 }
                             }
                         }

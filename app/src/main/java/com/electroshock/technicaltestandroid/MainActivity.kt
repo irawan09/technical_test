@@ -247,8 +247,9 @@ class MainActivity : ComponentActivity() {
 
                     val sharedPreferences: SharedPreferences = getContext().getSharedPreferences(sharedPrefFile,Context.MODE_PRIVATE)
                     val editor:SharedPreferences.Editor =  sharedPreferences.edit()
-//                    editor.putInt("id_key",id)
-//                    editor.putString("name_key",name)
+                    editor.putString("headerValue",dataPojo.headerValue)
+                    editor.putString("headerColor",dataPojo.headerTextColor)
+                    editor.putString("headerSize",dataPojo.headerFontSize)
                     editor.apply()
                     editor.commit()
 

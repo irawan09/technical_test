@@ -382,16 +382,27 @@ fun CardList(cardList : List<CardImageData>){
         items(cardList) { cardList ->
             Text(cardList.cardTitle, color = getColor(cardList.cardTextColor), fontSize = (((cardList.cardTextSize).toInt()).sp))
             Text(cardList.cardDescription, color = getColor(cardList.cardDescriptionTextColor), fontSize = (((cardList.cardDescriptionTextSize).toInt()).sp))
-            LoadImage(url = cardList.cardImage, heightImage = cardList.cardImageHeight, widthImage = cardList.cardImageWidth)
+            LoadImage(url = cardList.cardImage, heightImage = cardList.cardImageHeight, widthImage = cardList.cardImageWidth, imageTitle = cardList.cardImageTitle, imageTitleTextColor = cardList.cardImageTitleTextColor, imageTitleTextSize = cardList.cardImageTitleTextSize, imageDescription = cardList.cardImageDescription, imageDescriptionTextColor = cardList.cardImageDescriptionTextColor, imageDescriptionTextSize = cardList.cardImageDescriptionTextSize)
         }
     }
 }
 
 @Composable
-fun LoadImage(url: String, heightImage : String, widthImage : String){
+fun LoadImage(
+    url: String,
+    heightImage : String,
+    widthImage : String,
+    imageTitle : String,
+    imageTitleTextColor : String,
+    imageTitleTextSize : String,
+    imageDescription : String,
+    imageDescriptionTextColor : String,
+    imageDescriptionTextSize : String ){
+
     Box(modifier = Modifier
-        .height((heightImage.toInt()).dp)
-        .width((widthImage.toInt()).dp)
+        .fillMaxHeight()
+        .fillMaxWidth()
+        .clickable(onClick = { })
         .clip(shape = RoundedCornerShape(16.dp)),
         contentAlignment = Alignment.Center) {
             val painter = rememberImagePainter(
@@ -407,5 +418,22 @@ fun LoadImage(url: String, heightImage : String, widthImage : String){
             modifier = Modifier
                 .height((heightImage.toInt()).dp)
                 .width((widthImage.toInt()).dp))
+        Column(
+            verticalArrangement = Arrangement.SpaceEvenly,
+            modifier = Modifier
+                .height(350.dp)
+                .fillMaxWidth()
+                .wrapContentSize(Alignment.BottomStart)) {
+            Text(
+                imageTitle,
+                color = getColor(imageTitleTextColor),
+                fontSize = ((imageTitleTextSize).toInt()).sp
+            )
+            Text(
+                imageDescription,
+                color = getColor(imageDescriptionTextColor),
+                fontSize = ((imageDescriptionTextSize).toInt()).sp
+            )
+        }
     }
 }

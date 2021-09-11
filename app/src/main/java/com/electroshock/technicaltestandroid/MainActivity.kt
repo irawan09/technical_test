@@ -260,7 +260,6 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
                         }
-                        Log.d("Array 1 index 0 data image Title saya ", (itemsArray1[0].cardImageTitle).toString())
                     }
 
                     val sharedPreferences: SharedPreferences = getContext().getSharedPreferences(sharedPrefFile,Context.MODE_PRIVATE)
@@ -270,6 +269,8 @@ class MainActivity : ComponentActivity() {
                     editor.putString("headerSize",dataPojo.headerFontSize)
                     editor.apply()
                     editor.commit()
+
+                    Log.d("Array 1 index 0 data image Title saya ", (itemsArray1[0].cardImage))
 
                     setContent {
                         TechnicalTestAndroidTheme {
@@ -284,7 +285,7 @@ class MainActivity : ComponentActivity() {
                                         TitleCard(Cell(dataPojo.headerValue, dataPojo.headerTextColor, dataPojo.headerFontSize))
                                         TitleCard(Cell(dataPojo.subHeaderValue, dataPojo.subHeaderTextColor, dataPojo.subHeaderFontSize))
                                         TitleCard(Cell(dataPojo.descSubHeaderValue, dataPojo.descSubHeaderTextColor, dataPojo.descSubHeaderFontSize))
-                                        CoilImage(dataPojo.imageUrl, dataPojo.imageSizeHeight, dataPojo.imageSizeWidth)
+                                        CoilImage((itemsArray1[0].cardImage), (itemsArray1[0].cardImageHeight), (itemsArray1[0].cardImageWidth))
                                     }
                                     LazyColumn {
 

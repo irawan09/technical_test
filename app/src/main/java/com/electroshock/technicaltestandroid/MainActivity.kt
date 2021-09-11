@@ -45,6 +45,7 @@ class MainActivity : ComponentActivity() {
     val dataPojo = Data()
     var itemsArray1: ArrayList<ImageData> = ArrayList()
     var itemsArray2: ArrayList<TitleImageData> = ArrayList()
+    var itemsArray3: ArrayList<CardImageData> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -273,6 +274,46 @@ class MainActivity : ComponentActivity() {
                     var titleList : List<TitleImageData>
                     Log.d("Array 1 saya panjangnya ", ((itemsArray1.size).toString()))
 
+                    for (j in 0 until itemsArray2.size){
+                        var data1 = itemsArray2[j].cardTitle
+                        var data2 = itemsArray2[j].cardTextColor
+                        var data3 = itemsArray2[j].cardTextSize
+                        var data4 = itemsArray2[j].cardDescription
+                        var data5 = itemsArray2[j].cardDescriptionTextColor
+                        var data6 = itemsArray2[j].cardDescriptionTextSize
+                        var data7 = itemsArray1[j].cardImage
+                        var data8 = itemsArray1[j].cardImageWidth
+                        var data9 = itemsArray1[j].cardImageHeight
+                        var data10 = itemsArray1[j].cardImageTitle
+                        var data11 = itemsArray1[j].cardImageTitleTextColor
+                        var data12 = itemsArray1[j].cardImageTitleTextSize
+                        var data13 = itemsArray1[j].cardImageDescription
+                        var data14 = itemsArray1[j].cardImageDescriptionTextColor
+                        var data15 = itemsArray1[j].cardImageDescriptionTextSize
+
+                        val card_image =
+                            CardImageData(
+                                data1,
+                                data2,
+                                data3,
+                                data4,
+                                data5,
+                                data6,
+                                data7,
+                                data8,
+                                data9,
+                                data10,
+                                data11,
+                                data12,
+                                data13,
+                                data14,
+                                data15
+                            )
+                        itemsArray3.add(card_image)
+                        Log.d("Array 3 saya ", itemsArray3.toString())
+
+                    }
+
                     setContent {
                         TechnicalTestAndroidTheme {
                             // A surface container using the 'background' color from the theme
@@ -286,8 +327,8 @@ class MainActivity : ComponentActivity() {
                                         TitleCard(Cell(dataPojo.headerValue, dataPojo.headerTextColor, dataPojo.headerFontSize))
                                         TitleCard(Cell(dataPojo.subHeaderValue, dataPojo.subHeaderTextColor, dataPojo.subHeaderFontSize))
                                         TitleCard(Cell(dataPojo.descSubHeaderValue, dataPojo.descSubHeaderTextColor, dataPojo.descSubHeaderFontSize))
-                                        TitleList(itemsArray2)
-                                        LoadImage((itemsArray1[0].cardImage), (itemsArray1[0].cardImageHeight), (itemsArray1[0].cardImageWidth))
+                                        CardList(itemsArray3)
+//                                        LoadImage((itemsArray1[0].cardImage), (itemsArray1[0].cardImageHeight), (itemsArray1[0].cardImageWidth))
                                     }
                                 }
                             }
@@ -325,23 +366,23 @@ class MainActivity : ComponentActivity() {
 fun TitleCard(cell: Cell){
     TechnicalTestAndroidTheme{
         Column(modifier = Modifier
-//            .padding(.dp)
             .fillMaxWidth()
             .wrapContentSize(Alignment.Center)
-            .clickable(onClick = { } )){
-//            .clip(shape = RoundedCornerShape(16.dp))){
+            .clickable(onClick = { })){
 
             Text(cell.cardTitle, color = getColor(cell.cardTextColor), fontSize = ((cell.cardTextSize).toInt()).sp)
         }
     }
 }
 
+
 @Composable
-fun TitleList(titleList : List<TitleImageData>){
+fun CardList(cardList : List<CardImageData>){
     LazyColumn {
-        items(titleList) { titleList ->
-            Text(titleList.cardTitle, color = getColor(titleList.cardTextColor), fontSize = (((titleList.cardTextSize).toInt()).sp))
-            Text(titleList.cardDescription, color = getColor(titleList.cardDescriptionTextColor), fontSize = (((titleList.cardDescriptionTextSize).toInt()).sp))
+        items(cardList) { cardList ->
+            Text(cardList.cardTitle, color = getColor(cardList.cardTextColor), fontSize = (((cardList.cardTextSize).toInt()).sp))
+            Text(cardList.cardDescription, color = getColor(cardList.cardDescriptionTextColor), fontSize = (((cardList.cardDescriptionTextSize).toInt()).sp))
+            LoadImage(url = cardList.cardImage, heightImage = cardList.cardImageHeight, widthImage = cardList.cardImageWidth)
         }
     }
 }
@@ -351,7 +392,7 @@ fun LoadImage(url: String, heightImage : String, widthImage : String){
     Box(modifier = Modifier
         .height((heightImage.toInt()).dp)
         .width((widthImage.toInt()).dp)
-        .clip(shape = RoundedCornerShape(8.dp)),
+        .clip(shape = RoundedCornerShape(16.dp)),
         contentAlignment = Alignment.Center) {
             val painter = rememberImagePainter(
                 data = url,
@@ -363,6 +404,8 @@ fun LoadImage(url: String, heightImage : String, widthImage : String){
         Image(
             painter = painter,
             contentDescription = null,
-            modifier = Modifier.height((heightImage.toInt()).dp).width((widthImage.toInt()).dp))
+            modifier = Modifier
+                .height((heightImage.toInt()).dp)
+                .width((widthImage.toInt()).dp))
     }
 }

@@ -3,13 +3,10 @@ package com.electroshock.technicaltestandroid
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
-import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -18,6 +15,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
@@ -25,8 +24,8 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
@@ -271,6 +270,8 @@ class MainActivity : ComponentActivity() {
                     editor.commit()
 
                     Log.d("Array 1 index 0 data image Title saya ", (itemsArray1[0].cardImage))
+                    var titleList : List<TitleImageData>
+                    Log.d("Array 1 saya panjangnya ", ((itemsArray1.size).toString()))
 
                     setContent {
                         TechnicalTestAndroidTheme {
@@ -285,10 +286,8 @@ class MainActivity : ComponentActivity() {
                                         TitleCard(Cell(dataPojo.headerValue, dataPojo.headerTextColor, dataPojo.headerFontSize))
                                         TitleCard(Cell(dataPojo.subHeaderValue, dataPojo.subHeaderTextColor, dataPojo.subHeaderFontSize))
                                         TitleCard(Cell(dataPojo.descSubHeaderValue, dataPojo.descSubHeaderTextColor, dataPojo.descSubHeaderFontSize))
-                                        CoilImage((itemsArray1[0].cardImage), (itemsArray1[0].cardImageHeight), (itemsArray1[0].cardImageWidth))
-                                    }
-                                    LazyColumn {
-
+                                        TitleList(itemsArray2)
+                                        LoadImage((itemsArray1[0].cardImage), (itemsArray1[0].cardImageHeight), (itemsArray1[0].cardImageWidth))
                                     }
                                 }
                             }
@@ -338,10 +337,21 @@ fun TitleCard(cell: Cell){
 }
 
 @Composable
-fun CoilImage(url: String, heightImage : String, widthImage : String){
+fun TitleList(titleList : List<TitleImageData>){
+    LazyColumn {
+        items(titleList) { titleList ->
+            Text(titleList.cardTitle, color = getColor(titleList.cardTextColor), fontSize = (((titleList.cardTextSize).toInt()).sp))
+            Text(titleList.cardDescription, color = getColor(titleList.cardDescriptionTextColor), fontSize = (((titleList.cardDescriptionTextSize).toInt()).sp))
+        }
+    }
+}
+
+@Composable
+fun LoadImage(url: String, heightImage : String, widthImage : String){
     Box(modifier = Modifier
         .height((heightImage.toInt()).dp)
-        .width((widthImage.toInt()).dp),
+        .width((widthImage.toInt()).dp)
+        .clip(shape = RoundedCornerShape(8.dp)),
         contentAlignment = Alignment.Center) {
             val painter = rememberImagePainter(
                 data = url,

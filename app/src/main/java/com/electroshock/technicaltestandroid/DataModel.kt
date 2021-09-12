@@ -1,6 +1,6 @@
 package com.electroshock.technicaltestandroid
 
-data class Cell(
+data class Header(
     var cardTitle: String  = "N/A",
     var cardTextColor: String = "N/A",
     var cardTextSize: String = "N/A",

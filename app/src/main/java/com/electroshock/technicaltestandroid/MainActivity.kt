@@ -342,9 +342,9 @@ class MainActivity : ComponentActivity() {
                                         modifier = Modifier
                                             .fillMaxWidth()
                                             .wrapContentSize(Alignment.Center)) {
-                                        TitleCard(Cell(dataPojo.headerValue, dataPojo.headerTextColor, dataPojo.headerFontSize))
-                                        TitleCard(Cell(dataPojo.subHeaderValue, dataPojo.subHeaderTextColor, dataPojo.subHeaderFontSize))
-                                        TitleCard(Cell(dataPojo.descSubHeaderValue, dataPojo.descSubHeaderTextColor, dataPojo.descSubHeaderFontSize))
+                                        TitleCard(Header(dataPojo.headerValue, dataPojo.headerTextColor, dataPojo.headerFontSize))
+                                        TitleCard(Header(dataPojo.subHeaderValue, dataPojo.subHeaderTextColor, dataPojo.subHeaderFontSize))
+                                        TitleCard(Header(dataPojo.descSubHeaderValue, dataPojo.descSubHeaderTextColor, dataPojo.descSubHeaderFontSize))
                                         CardList(itemsArray3)
                                     }
                                 }
@@ -380,14 +380,14 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun TitleCard(cell: Cell){
+fun TitleCard(header: Header){
     TechnicalTestAndroidTheme{
         Column(modifier = Modifier
             .fillMaxWidth()
             .wrapContentSize(Alignment.Center)
             .clickable(onClick = { })){
 
-            Text(cell.cardTitle, color = getColor(cell.cardTextColor), fontSize = ((cell.cardTextSize).toInt()).sp)
+            Text(header.cardTitle, color = getColor(header.cardTextColor), fontSize = ((header.cardTextSize).toInt()).sp)
         }
     }
 }

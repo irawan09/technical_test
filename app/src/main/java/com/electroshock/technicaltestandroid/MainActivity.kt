@@ -28,6 +28,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModelProvider
 import coil.compose.rememberImagePainter
 import com.electroshock.technicaltestandroid.MainActivity.HexToJetpackColor.getColor
 import com.electroshock.technicaltestandroid.ui.theme.TechnicalTestAndroidTheme
@@ -41,11 +42,13 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : ComponentActivity() {
 
-    private val sharedPrefFile = "kotlinsharedpreference"
+    private val sharedPrefFile = "SharedPreference"
     val dataPojo = Data()
     var itemsArray1: ArrayList<ImageData> = ArrayList()
     var itemsArray2: ArrayList<TitleImageData> = ArrayList()
     var itemsArray3: ArrayList<CardImageData> = ArrayList()
+
+    private lateinit var viewModel: DataViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,6 +83,10 @@ class MainActivity : ComponentActivity() {
 
     @SuppressLint("LongLogTag")
     private fun parseJSON() {
+
+
+        Log.d("DataFragment", "Called DataModelProvider.get")
+        viewModel = ViewModelProvider(this).get(DataViewModel::class.java)
 
         // Create Retrofit object
         val retrofit = Retrofit.Builder()
@@ -328,7 +335,6 @@ class MainActivity : ComponentActivity() {
                                         TitleCard(Cell(dataPojo.subHeaderValue, dataPojo.subHeaderTextColor, dataPojo.subHeaderFontSize))
                                         TitleCard(Cell(dataPojo.descSubHeaderValue, dataPojo.descSubHeaderTextColor, dataPojo.descSubHeaderFontSize))
                                         CardList(itemsArray3)
-//                                        LoadImage((itemsArray1[0].cardImage), (itemsArray1[0].cardImageHeight), (itemsArray1[0].cardImageWidth))
                                     }
                                 }
                             }

@@ -108,16 +108,20 @@ class MainActivity : ComponentActivity() {
                     // Convert raw JSON to pretty JSON using GSON library
                     val gson = GsonBuilder().setPrettyPrinting().create()
                     val prettyJson = gson.toJson(response.body())
-                    Log.d("Pretty Printed JSON :", prettyJson)
+                    Log.d("Pretty JSON response ", prettyJson)
 
                     val items = response.body()?.pages?.cards
                     if (items != null) {
 
                         for (i in 0 until items.count()) {
-                            Log.d("Loop ke ", i.toString())
 
                             if (i <= items.count()) {
 
+                                // as condition in statement if, I am more prefer
+                                // to use the index of  of the response from JSON value than
+                                // using the card_type value because from my understanding,
+                                // there is anomaly on the second card structure to present it
+                                // as nice structure in Recycle view
                                 if (i == 0) {
                                     //Working for header part
                                     var headerJsonValue = items[i].card?.cardValue ?: "N/A"
@@ -207,6 +211,8 @@ class MainActivity : ComponentActivity() {
                                             cardDescriptionTextColor,
                                             cardDescriptionTextSize
                                         )
+                                    // I am store the title_description card type in a
+                                    // single array.
                                     itemsArray2.add(titleImageData)
                                     Log.d("Array 2 saya ", itemsArray2.toString())
 
@@ -261,6 +267,9 @@ class MainActivity : ComponentActivity() {
                                             cardDescriptionTextColor,
                                             cardDescriptionTextSize
                                         )
+
+                                    // I am store the image_description_title card type in a
+                                    // single array.
                                     itemsArray1.add(image)
                                     Log.d("Array 1 saya ", itemsArray1.toString())
 
@@ -277,8 +286,9 @@ class MainActivity : ComponentActivity() {
                     editor.apply()
                     editor.commit()
 
-                    Log.d("Array 1 index 0 data image Title saya ", (itemsArray1[0].cardImage))
-
+                    // After store all the data on different array
+                    // then I joined all the array into one Array to get the data
+                    // structure from the requirements.
                     for (j in 0 until itemsArray2.size){
                         var data1 = itemsArray2[j].cardTitle
                         var data2 = itemsArray2[j].cardTextColor

@@ -85,9 +85,6 @@ class MainActivity : ComponentActivity() {
     @SuppressLint("LongLogTag")
     private fun parseJSON() {
 
-        viewModel.remove(card_image)
-        Log.d("Data View Model saya ", viewModel.toString())
-
         Log.d("DataFragment", "Called DataModelProvider.get")
         viewModel = ViewModelProvider(this).get(DataViewModel::class.java)
 
@@ -281,8 +278,6 @@ class MainActivity : ComponentActivity() {
                     editor.commit()
 
                     Log.d("Array 1 index 0 data image Title saya ", (itemsArray1[0].cardImage))
-                    var titleList : List<TitleImageData>
-                    Log.d("Array 1 saya panjangnya ", ((itemsArray1.size).toString()))
 
                     for (j in 0 until itemsArray2.size){
                         var data1 = itemsArray2[j].cardTitle

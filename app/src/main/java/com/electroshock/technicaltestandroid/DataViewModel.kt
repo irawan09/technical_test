@@ -18,11 +18,6 @@ class DataViewModel : ViewModel() {
         listData.value=newlist
     }
 
-    fun remove(cardImageData: CardImageData){
-        newlist.remove(cardImageData)
-        listData.value=newlist
-    }
-
     override fun onCleared() {
         super.onCleared()
         Log.i("DataViewModel", "DataViewModel destroyed!")

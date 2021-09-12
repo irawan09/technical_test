@@ -6,21 +6,21 @@ import androidx.lifecycle.ViewModel
 
 class DataViewModel : ViewModel() {
 
-    var cardImage: String = "N/A"
-    var cardImageWidth: String = "N/A"
-    var cardImageHeight: String = "N/A"
-    var cardImageTitle: String = "N/A"
-    var cardImageTitleTextColor: String = "N/A"
-    var cardImageTitleTextSize: String = "N/A"
-    var cardImageDescription: String = "N/A"
-    var cardImageDescriptionTextColor: String = "N/A"
-    var cardImageDescriptionTextSize: String = "N/A"
-
-    var dataModel  = MutableLiveData<CardImageData>()
-
+    var listData = MutableLiveData<ArrayList<CardImageData>>()
+    var newlist = arrayListOf<CardImageData>()
 
     init {
         Log.d("DataViewModel", "DataViewModel created!")
+    }
+
+    fun add(cardImageData: CardImageData){
+        newlist.add(cardImageData)
+        listData.value=newlist
+    }
+
+    fun remove(cardImageData: CardImageData){
+        newlist.remove(cardImageData)
+        listData.value=newlist
     }
 
     override fun onCleared() {

@@ -319,6 +319,9 @@ class MainActivity : ComponentActivity() {
                         itemsArray3.add(card_image)
                         Log.d("Array 3 saya ", itemsArray3.toString())
 
+                        viewModel.add(card_image)
+                        Log.d("Data View Model saya ", viewModel.toString())
+
                     }
 
                     setContent {

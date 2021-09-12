@@ -43,6 +43,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class MainActivity : ComponentActivity() {
 
     private val sharedPrefFile = "SharedPreference"
+    var card_image = CardImageData()
     val dataPojo = Data()
     var itemsArray1: ArrayList<ImageData> = ArrayList()
     var itemsArray2: ArrayList<TitleImageData> = ArrayList()
@@ -84,6 +85,8 @@ class MainActivity : ComponentActivity() {
     @SuppressLint("LongLogTag")
     private fun parseJSON() {
 
+        viewModel.remove(card_image)
+        Log.d("Data View Model saya ", viewModel.toString())
 
         Log.d("DataFragment", "Called DataModelProvider.get")
         viewModel = ViewModelProvider(this).get(DataViewModel::class.java)
@@ -298,7 +301,7 @@ class MainActivity : ComponentActivity() {
                         var data14 = itemsArray1[j].cardImageDescriptionTextColor
                         var data15 = itemsArray1[j].cardImageDescriptionTextSize
 
-                        val card_image =
+                        card_image =
                             CardImageData(
                                 data1,
                                 data2,

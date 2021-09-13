@@ -32,6 +32,7 @@ import androidx.lifecycle.ViewModelProvider
 import coil.compose.rememberImagePainter
 import com.electroshock.technicaltestandroid.MainActivity.HexToJetpackColor.getColor
 import com.electroshock.technicaltestandroid.api.DataService
+import com.electroshock.technicaltestandroid.api.RetrofitServiceFactory
 import com.electroshock.technicaltestandroid.ui.theme.TechnicalTestAndroidTheme
 import com.electroshock.technicaltestandroid.view_model.DataViewModel
 import com.google.gson.GsonBuilder
@@ -90,14 +91,7 @@ class MainActivity : ComponentActivity() {
         Log.d("DataFragment", "Called DataModelProvider.get")
         viewModel = ViewModelProvider(this).get(DataViewModel::class.java)
 
-        // Create Retrofit object
-        val retrofit = Retrofit.Builder()
-            .baseUrl(baseUrl)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        // Create Service for retrofit object
-        val service = retrofit.create(DataService::class.java)
+       val service = RetrofitServiceFactory.createService()
 
         CoroutineScope(Dispatchers.IO).launch {
 

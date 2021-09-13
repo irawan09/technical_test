@@ -1,4 +1,4 @@
-package com.electroshock.technicaltestandroid.model
+package com.electroshock.technicaltestandroid.api
 
 import com.electroshock.technicaltestandroid.PagesModel
 import retrofit2.Response

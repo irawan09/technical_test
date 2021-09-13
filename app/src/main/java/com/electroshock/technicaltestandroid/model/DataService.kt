@@ -1,5 +1,6 @@
-package com.electroshock.technicaltestandroid
+package com.electroshock.technicaltestandroid.model
 
+import com.electroshock.technicaltestandroid.PagesModel
 import retrofit2.Response
 import retrofit2.http.GET
 

@@ -1,4 +1,4 @@
-package com.electroshock.technicaltestandroid
+package com.electroshock.technicaltestandroid.view_model
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

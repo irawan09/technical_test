@@ -31,7 +31,9 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModelProvider
 import coil.compose.rememberImagePainter
 import com.electroshock.technicaltestandroid.MainActivity.HexToJetpackColor.getColor
+import com.electroshock.technicaltestandroid.model.DataService
 import com.electroshock.technicaltestandroid.ui.theme.TechnicalTestAndroidTheme
+import com.electroshock.technicaltestandroid.view_model.DataViewModel
 import com.google.gson.GsonBuilder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

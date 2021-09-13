@@ -1,8 +1,9 @@
-package com.electroshock.technicaltestandroid
+package com.electroshock.technicaltestandroid.view_model
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.electroshock.technicaltestandroid.CardImageData
 
 class DataViewModel : ViewModel() {
 
@@ -16,6 +17,7 @@ class DataViewModel : ViewModel() {
     fun add(cardImageData: CardImageData){
         newlist.add(cardImageData)
         listData.value=newlist
+        Log.d("DataViewModel", (listData.value).toString())
     }
 
     override fun onCleared() {

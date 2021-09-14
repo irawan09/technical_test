@@ -24,9 +24,9 @@ class DataViewModelTest {
 
     @Test
     fun `check the set data list is available`() {
-        val jokes = classUnderTest.data.testObserver()
+        val card = classUnderTest.data.testObserver()
 
         Truth.assert_()
-            .that(jokes.observedValues.first())
+            .that(card.observedValues.first())
     }
 }

@@ -2,6 +2,7 @@ package com.electroshock.technicaltestandroid
 
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
+import androidx.compose.ui.test.onNodeWithText
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
 
@@ -23,6 +24,6 @@ class ComposeUIInstrumentationTest {
 
     @Test
     fun title_card(){
-//        composeTestRule.onAllNodesWithText()
+        composeTestRule.onNodeWithText("Hello, Welcome to App!").assertExists()
     }
 }

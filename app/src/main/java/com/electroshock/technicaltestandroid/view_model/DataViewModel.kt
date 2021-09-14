@@ -56,25 +56,4 @@ class DataViewModel : ViewModel() {
         super.onCleared()
         Log.i("DataViewModel", "DataViewModel destroyed!")
     }
-
-
-    fun onDataRequest() = newlist.toObservable()
-        .repeat(5)
-        .subscribeOn(Schedulers.io())
-        .observeOn(Schedulers.io())
-        .doOnSubscribe {
-            _data.postValue(emptyList())
-            _dataLoadingStatus.postValue(LoadingStatus.LOADING)
-        }
-        .doFinally { _dataLoadingStatus.postValue(LoadingStatus.NOT_LOADING) }
-        .subscribeBy(
-            onNext = { _data.postValue(_data.value) },
-            onError = {
-                _data.postValue(
-                    (it.message?.let {
-                        _data.value?.plus(it)
-                    } ?: emptyList()) as Collection<CardImageData>?)
-            },
-            onComplete = { }
-        )
 }

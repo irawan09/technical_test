@@ -84,6 +84,7 @@ class MainActivity : ComponentActivity() {
         viewModel.dataLoadingStatus.observe(this, Observer {
             when (it) {
                 DataViewModel.LoadingStatus.LOADING -> {
+                    Log.d("Observed value ", observeViewModel().toString())
                     Toast.makeText(this, "Data is Loaded", Toast.LENGTH_SHORT).show()
                 }
                 DataViewModel.LoadingStatus.NOT_LOADING -> {
@@ -355,8 +356,6 @@ class MainActivity : ComponentActivity() {
         }
     }
     companion object {
-        var baseUrl = "https://private-8ce77c-tmobiletest.apiary-mock.com/"
-
         private lateinit var context: Context
 
         fun setContext(con: Context) {

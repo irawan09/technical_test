@@ -39,9 +39,7 @@ class DataViewModel : ViewModel() {
     val installation: LiveData<InstallationStatus> = _installation
 
     init {
-        Log.d("DataViewModel", "DataViewModel created!")
         _data.postValue(emptyList())
-        Log.d("data ", data.toString())
     }
 
     fun add(cardImageData: CardImageData){

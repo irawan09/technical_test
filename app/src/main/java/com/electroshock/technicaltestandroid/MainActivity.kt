@@ -2,7 +2,6 @@ package com.electroshock.technicaltestandroid
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.SharedPreferences
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
@@ -32,7 +31,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import coil.compose.rememberImagePainter
 import com.electroshock.technicaltestandroid.MainActivity.HexToJetpackColor.getColor
-import com.electroshock.technicaltestandroid.api.DataService
 import com.electroshock.technicaltestandroid.api.RetrofitServiceFactory
 import com.electroshock.technicaltestandroid.ui.theme.TechnicalTestAndroidTheme
 import com.electroshock.technicaltestandroid.view_model.DataViewModel
@@ -41,17 +39,13 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : ComponentActivity() {
 
-    private val sharedPrefFile = "SharedPreference"
     var card_image = CardImageData()
     val dataPojo = Data()
     var itemsArray1: ArrayList<ImageData> = ArrayList()
     var itemsArray2: ArrayList<TitleImageData> = ArrayList()
-    var itemsArray3: ArrayList<CardImageData> = ArrayList()
 
     private lateinit var viewModel: DataViewModel
 
@@ -86,7 +80,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    fun observeViewModel(cardList : List<CardImageData>){
+    fun observeViewModel(){
         viewModel.dataLoadingStatus.observe(this, Observer {
             when (it) {
                 DataViewModel.LoadingStatus.LOADING -> {
@@ -112,7 +106,7 @@ class MainActivity : ComponentActivity() {
                                 TitleCard(Header(dataPojo.headerValue, dataPojo.headerTextColor, dataPojo.headerFontSize))
                                 TitleCard(Header(dataPojo.subHeaderValue, dataPojo.subHeaderTextColor, dataPojo.subHeaderFontSize))
                                 TitleCard(Header(dataPojo.descSubHeaderValue, dataPojo.descSubHeaderTextColor, dataPojo.descSubHeaderFontSize))
-                                CardList(cardList = cardList)
+                                CardList(cardList = viewModel.getData())
                             }
                         }
                     }
@@ -310,16 +304,8 @@ class MainActivity : ComponentActivity() {
                         }
                     }
 
-                    val sharedPreferences: SharedPreferences = getContext().getSharedPreferences(sharedPrefFile,Context.MODE_PRIVATE)
-                    val editor:SharedPreferences.Editor =  sharedPreferences.edit()
-                    editor.putString("headerValue",dataPojo.headerValue)
-                    editor.putString("headerColor",dataPojo.headerTextColor)
-                    editor.putString("headerSize",dataPojo.headerFontSize)
-                    editor.apply()
-                    editor.commit()
-
                     // After store all the data on different array
-                    // then I joined all the array into one Array to get the data
+                    // then I joined all the array into the ViewModel instance to get the data
                     // structure from the requirements.
                     for (j in 0 until itemsArray2.size){
                         var data1 = itemsArray2[j].cardTitle
@@ -356,17 +342,12 @@ class MainActivity : ComponentActivity() {
                                 data14,
                                 data15
                             )
-                        itemsArray3.add(card_image)
-                        Log.d("Array 3 saya ", itemsArray3.toString())
 
                         viewModel.add(card_image)
                         Log.d("Data View Model saya ", viewModel.toString())
-//                        Log.d("Data View Model saya ", dataModel().toString())
 
                     }
-
-                    observeViewModel(itemsArray3)
-
+                    observeViewModel()
                 } else {
                     Log.e("RETROFIT_ERROR", response.code().toString())
                 }

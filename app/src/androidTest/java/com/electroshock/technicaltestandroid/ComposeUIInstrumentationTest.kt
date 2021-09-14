@@ -1,14 +1,13 @@
 package com.electroshock.technicaltestandroid
 
+import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import androidx.compose.ui.test.onAllNodesWithText
+import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
-import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
 
 import org.junit.runner.RunWith
 
-import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 
@@ -24,6 +23,6 @@ class ComposeUIInstrumentationTest {
 
     @Test
     fun title_card(){
-        composeTestRule.onNodeWithText("Hello, Welcome to App!").assertExists()
+        composeTestRule.onNodeWithText("Hello, Welcome to App!").assertIsDisplayed()
     }
 }

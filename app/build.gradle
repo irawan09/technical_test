@@ -88,4 +88,11 @@ dependencies {
 
     // Gson (To convert raw JSON to pretty JSON)
     implementation 'com.google.code.gson:gson:2.8.6'
+
+    // Reactive JAVA
+    implementation "io.reactivex.rxjava2:rxkotlin:2.3.0"
+    implementation "io.reactivex.rxjava2:rxandroid:2.1.0"
+
+    api "android.arch.lifecycle:extensions:1.1.1"
+    
 }

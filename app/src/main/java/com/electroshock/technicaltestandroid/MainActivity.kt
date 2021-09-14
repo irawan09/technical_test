@@ -28,6 +28,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import coil.compose.rememberImagePainter
 import com.electroshock.technicaltestandroid.MainActivity.HexToJetpackColor.getColor
@@ -83,6 +84,41 @@ class MainActivity : ComponentActivity() {
             val nwInfo = connectivityManager.activeNetworkInfo ?: return false
             return nwInfo.isConnected
         }
+    }
+
+    fun observeViewModel(cardList : List<CardImageData>){
+        viewModel.dataLoadingStatus.observe(this, Observer {
+            when (it) {
+                DataViewModel.LoadingStatus.LOADING -> {
+                    Toast.makeText(this, "Data is Loaded", Toast.LENGTH_SHORT).show()
+                }
+                DataViewModel.LoadingStatus.NOT_LOADING -> {
+                    Toast.makeText(this, "Data is not Loaded", Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
+
+        viewModel.data.observe(this, Observer {
+            setContent {
+                TechnicalTestAndroidTheme {
+                    // A surface container using the 'background' color from the theme
+                    Surface(color = MaterialTheme.colors.background) {
+                        Scaffold{
+                            Column(
+                                verticalArrangement = Arrangement.SpaceEvenly,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .wrapContentSize(Alignment.Center)) {
+                                TitleCard(Header(dataPojo.headerValue, dataPojo.headerTextColor, dataPojo.headerFontSize))
+                                TitleCard(Header(dataPojo.subHeaderValue, dataPojo.subHeaderTextColor, dataPojo.subHeaderFontSize))
+                                TitleCard(Header(dataPojo.descSubHeaderValue, dataPojo.descSubHeaderTextColor, dataPojo.descSubHeaderFontSize))
+                                CardList(cardList = cardList)
+                            }
+                        }
+                    }
+                }
+            }
+        })
     }
 
     @SuppressLint("LongLogTag")
@@ -325,28 +361,12 @@ class MainActivity : ComponentActivity() {
 
                         viewModel.add(card_image)
                         Log.d("Data View Model saya ", viewModel.toString())
+//                        Log.d("Data View Model saya ", dataModel().toString())
 
                     }
 
-                    setContent {
-                        TechnicalTestAndroidTheme {
-                            // A surface container using the 'background' color from the theme
-                            Surface(color = MaterialTheme.colors.background) {
-                                Scaffold{
-                                    Column(
-                                        verticalArrangement = Arrangement.SpaceEvenly,
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .wrapContentSize(Alignment.Center)) {
-                                        TitleCard(Header(dataPojo.headerValue, dataPojo.headerTextColor, dataPojo.headerFontSize))
-                                        TitleCard(Header(dataPojo.subHeaderValue, dataPojo.subHeaderTextColor, dataPojo.subHeaderFontSize))
-                                        TitleCard(Header(dataPojo.descSubHeaderValue, dataPojo.descSubHeaderTextColor, dataPojo.descSubHeaderFontSize))
-                                        CardList(itemsArray3)
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    observeViewModel(itemsArray3)
+
                 } else {
                     Log.e("RETROFIT_ERROR", response.code().toString())
                 }

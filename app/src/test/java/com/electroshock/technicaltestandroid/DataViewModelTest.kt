@@ -23,7 +23,7 @@ class DataViewModelTest {
     private lateinit var classUnderTest: DataViewModel
 
     @Test
-    fun `check the set data list`() {
+    fun `check the set data list is available`() {
         val jokes = classUnderTest.data.testObserver()
 
         Truth.assert_()

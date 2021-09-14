@@ -6,11 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.electroshock.technicaltestandroid.CardImageData
 import com.electroshock.technicaltestandroid.api.RetrofitServiceFactory
-import io.reactivex.Completable
-import io.reactivex.rxkotlin.subscribeBy
-import io.reactivex.rxkotlin.toObservable
-import io.reactivex.schedulers.Schedulers
-import java.util.concurrent.TimeUnit
 
 class DataViewModel : ViewModel() {
 

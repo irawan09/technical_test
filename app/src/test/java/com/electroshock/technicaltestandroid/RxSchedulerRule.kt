@@ -25,7 +25,7 @@ class RxSchedulerRule : TestRule {
 
     companion object {
         // Trampoline is library where useful to special scheduler on case
-        // if all the task on subcscribe will be put on queue and will be executed
+        // if all the task on subcscribe list will be put on queue and will be executed
         // one by one
         private val SCHEDULER_INSTANCE = Schedulers.trampoline()
     }

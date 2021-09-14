@@ -21,7 +21,17 @@ class ComposeUIInstrumentationTest {
     val composeTestRule = createAndroidComposeRule<MainActivity>()
 
     @Test
-    fun title_card(){
+    fun header_title_test(){
         composeTestRule.onNodeWithText("Hello, Welcome to App!").assertIsDisplayed()
+    }
+
+    @Test
+    fun subheader_title_test(){
+        composeTestRule.onNodeWithText("Check out our App every week for exciting offers.").assertIsDisplayed()
+    }
+
+    @Test
+    fun subheader_description_test(){
+        composeTestRule.onNodeWithText("Offers available every week!").assertIsDisplayed()
     }
 }

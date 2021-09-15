@@ -60,6 +60,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    // function to check if the network is available
     private fun isNetworkAvailable(context: Context): Boolean {
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -80,11 +81,12 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    // this function using to observe the data from view model
+    // and send it to compose ui function
     fun observeViewModel(){
         viewModel.dataLoadingStatus.observe(this, Observer {
             when (it) {
                 DataViewModel.LoadingStatus.LOADING -> {
-                    Log.d("Observed value ", observeViewModel().toString())
                     Toast.makeText(this, "Data is Loaded", Toast.LENGTH_SHORT).show()
                 }
                 DataViewModel.LoadingStatus.NOT_LOADING -> {
@@ -116,14 +118,19 @@ class MainActivity : ComponentActivity() {
         })
     }
 
+    // this function using to parsing the JSON value and store it into array
     @SuppressLint("LongLogTag")
     private fun parseJSON() {
 
+        // get the model view from the class provider
         Log.d("DataFragment", "Called DataModelProvider.get")
         viewModel = ViewModelProvider(this).get(DataViewModel::class.java)
 
+        // create the api service (retrofit)
        val service = RetrofitServiceFactory.createService()
 
+        // I am using coroutine to make the loading process of the data from response
+        // works asynchronous.
         CoroutineScope(Dispatchers.IO).launch {
 
             // Do the GET request and get response
@@ -344,6 +351,7 @@ class MainActivity : ComponentActivity() {
                                 data15
                             )
 
+                        // insert data into view model
                         viewModel.add(card_image)
                         Log.d("Data View Model saya ", viewModel.toString())
 
@@ -355,6 +363,9 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
+    // a function where i can send the application context into other function
+    // or class.
     companion object {
         private lateinit var context: Context
 
@@ -367,14 +378,16 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    // an object which representing the function to convert the hexadecimal value
+    // into Jetpack color format
     object HexToJetpackColor {
         fun getColor(colorString: String): Color {
             return Color(android.graphics.Color.parseColor(colorString))
         }
     }
-
 }
 
+// composable UI section part from this line.
 @Composable
 fun TitleCard(header: Header){
     TechnicalTestAndroidTheme{

@@ -22,6 +22,7 @@ class DataViewModelTest {
     @InjectMocks
     private lateinit var classUnderTest: DataViewModel
 
+    // this test is to make sure the data already sended to the view model
     @Test
     fun `check the set data list is available`() {
         val card = classUnderTest.data.testObserver()

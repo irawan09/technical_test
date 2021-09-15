@@ -20,6 +20,7 @@ class ComposeUIInstrumentationTest {
     @get: Rule
     val composeTestRule = createAndroidComposeRule<MainActivity>()
 
+    // I am checking if the data is displayed correctly according the design.
     @Test
     fun header_title_test(){
         composeTestRule.onNodeWithText("Hello, Welcome to App!").assertIsDisplayed()

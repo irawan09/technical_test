@@ -78,7 +78,6 @@ data class CardImage(
     val imageSize: ImageSize?
 )
 
-
 data class AttributesFont(
 
     @SerializedName("size")

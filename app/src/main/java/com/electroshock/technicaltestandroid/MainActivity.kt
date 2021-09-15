@@ -82,7 +82,7 @@ class MainActivity : ComponentActivity() {
     }
 
     // this function using to observe the data from view model
-    // and send it to compose ui function
+    // and sent it to compose ui function
     fun observeViewModel(){
         viewModel.dataLoadingStatus.observe(this, Observer {
             when (it) {
@@ -151,7 +151,7 @@ class MainActivity : ComponentActivity() {
 
                             if (i <= items.count()) {
 
-                                // as condition in statement if, I am more prefer
+                                // in statement if, I am more prefer
                                 // to use the index of  of the response from JSON value than
                                 // using the card_type value because from my understanding,
                                 // there is anomaly on the second card structure to present it

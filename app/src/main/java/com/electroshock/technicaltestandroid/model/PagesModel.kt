@@ -41,7 +41,6 @@ data class Card(
     @SerializedName("attributes")
     val cardAttributes: CardAttributes?
 
-
 )
 
 data class CardAttributes(

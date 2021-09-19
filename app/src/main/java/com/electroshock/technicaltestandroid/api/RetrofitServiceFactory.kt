@@ -23,6 +23,7 @@ object RetrofitServiceFactory{
             chain.proceed(request)
         }
         .build()
+
     fun createService(): DataService = Retrofit.Builder()
         .baseUrl("https://private-8ce77c-tmobiletest.apiary-mock.com/")
         .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))

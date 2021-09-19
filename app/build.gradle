@@ -73,7 +73,7 @@ dependencies {
 
     api "android.arch.lifecycle:extensions:1.1.1"
 
-    // Picasso to download image to application
+    // Coil to download image to application
     def coil ="1.3.2"
     implementation "io.coil-kt:coil-compose:$coil"
 
@@ -109,7 +109,4 @@ dependencies {
     // Reactive JAVA
     implementation "io.reactivex.rxjava2:rxkotlin:2.3.0"
     implementation "io.reactivex.rxjava2:rxandroid:2.1.0"
-
-    api "android.arch.lifecycle:extensions:1.1.1"
-
 }

@@ -104,12 +104,15 @@ class MainActivity : ComponentActivity() {
        val service = RetrofitServiceFactory.createService()
 
         // I am using coroutine to make the loading process of the data from response
-        // works asynchronous.
+        // works asynchronous and executed on thread reserved for I/O operations in most of the case
+        // this dispatcher use for communicating for API GET Request .
         CoroutineScope(Dispatchers.IO).launch {
 
             // Do the GET request and get response
             val response = service.getData()
 
+            // I am using coroutine to make the loading process of the data from response
+            // works asynchronous and executed on main thread which when the UI updates.
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
 

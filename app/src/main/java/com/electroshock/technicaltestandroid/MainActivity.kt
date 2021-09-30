@@ -7,7 +7,6 @@ import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -58,16 +57,6 @@ class MainActivity : ComponentActivity() {
     // this function using to observe the data from view model
     // and sent it to compose ui function
     fun observeViewModel(){
-        viewModel.dataLoadingStatus.observe(this, Observer {
-            when (it) {
-                DataViewModel.LoadingStatus.LOADING -> {
-                    Toast.makeText(this, "Data is Loaded", Toast.LENGTH_SHORT).show()
-                }
-                DataViewModel.LoadingStatus.NOT_LOADING -> {
-                    Toast.makeText(this, "Data is not Loaded", Toast.LENGTH_SHORT).show()
-                }
-            }
-        })
 
         viewModel.data.observe(this, Observer {
             setContent {
@@ -397,7 +386,6 @@ fun TitleCard(header: Header){
         }
     }
 }
-
 
 @Composable
 fun CardList(cardList : List<CardImageData>){
